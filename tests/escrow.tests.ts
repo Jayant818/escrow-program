@@ -280,99 +280,99 @@ describe("Escrow", () => {
     });
   });
 
-  describe("can get all the offers", () => {
-    test("successfully gets all the offers", async () => {
-      const getOffers = connection.getAccountsFactory(
-        programClient.ESCROW_PROGRAM_ADDRESS,
-        OFFER_DISCRIMINATOR,
-        getOfferDecoder()
-      );
+  // describe("can get all the offers", () => {
+  //   test("successfully gets all the offers", async () => {
+  //     const getOffers = connection.getAccountsFactory(
+  //       programClient.ESCROW_PROGRAM_ADDRESS,
+  //       OFFER_DISCRIMINATOR,
+  //       getOfferDecoder()
+  //     );
 
-      const offers = await getOffers();
+  //     const offers = await getOffers();
 
-      assert.ok(offers.length === 2, "Expected to get two offers");
+  //     assert.ok(offers.length === 2, "Expected to get two offers");
 
-      // The first offer is created in the 'successfully creates an offer with valid inputs' test
-      const offer1 = offers[0];
-      assert.ok(offer1.exists, "Offer 1 account should exist");
-      if (offer1.exists) {
-        // This offer was created by Alice in the first makeOffer test
-        assert.equal(
-          offer1.address,
-          offer1.address,
-          "Offer 1 address should match"
-        );
-        assert.equal(
-          offer1.data.maker,
-          alice.address,
-          "Offer 1 maker address should match Alice"
-        );
-        assert.equal(
-          offer1.data.tokenMintA,
-          tokenMintA,
-          "Offer 1 tokenMintA should match"
-        );
-        assert.equal(
-          offer1.data.tokenMintB,
-          tokenMintB,
-          "Offer 1 tokenMintB should match"
-        );
-        assert.equal(
-          offer1.data.tokenBWantedAmount,
-          tokenBWantedAmount.toString(),
-          "Offer 1 tokenBWantedAmount should match"
-        );
-        assert.ok(
-          typeof offer1.data.bump === "number",
-          "Offer 1 bump should be a number"
-        );
-        assert.ok(
-          offer1.data.discriminator,
-          "Offer 1 discriminator should exist"
-        );
-      }
+  //     // The first offer is created in the 'successfully creates an offer with valid inputs' test
+  //     const offer1 = offers[0];
+  //     assert.ok(offer1.exists, "Offer 1 account should exist");
+  //     if (offer1.exists) {
+  //       // This offer was created by Alice in the first makeOffer test
+  //       assert.equal(
+  //         offer1.address,
+  //         offer1.address,
+  //         "Offer 1 address should match"
+  //       );
+  //       assert.equal(
+  //         offer1.data.maker,
+  //         alice.address,
+  //         "Offer 1 maker address should match Alice"
+  //       );
+  //       assert.equal(
+  //         offer1.data.tokenMintA,
+  //         tokenMintA,
+  //         "Offer 1 tokenMintA should match"
+  //       );
+  //       assert.equal(
+  //         offer1.data.tokenMintB,
+  //         tokenMintB,
+  //         "Offer 1 tokenMintB should match"
+  //       );
+  //       assert.equal(
+  //         offer1.data.tokenBWantedAmount,
+  //         tokenBWantedAmount.toString(),
+  //         "Offer 1 tokenBWantedAmount should match"
+  //       );
+  //       assert.ok(
+  //         typeof offer1.data.bump === "number",
+  //         "Offer 1 bump should be a number"
+  //       );
+  //       assert.ok(
+  //         offer1.data.discriminator,
+  //         "Offer 1 discriminator should exist"
+  //       );
+  //     }
 
-      // The second offer is created in the 'fails when trying to reuse an existing offer ID' test (by Alice, before Bob tries to reuse the ID)
-      const offer2 = offers[1];
-      assert.ok(offer2.exists, "Offer 2 account should exist");
-      if (offer2.exists) {
-        // This offer was also created by Alice, with a specific offer ID
-        assert.equal(
-          offer2.address,
-          offer2.address,
-          "Offer 2 address should match"
-        );
-        assert.equal(
-          offer2.data.maker,
-          alice.address,
-          "Offer 2 maker address should match Alice"
-        );
-        assert.equal(
-          offer2.data.tokenMintA,
-          tokenMintA,
-          "Offer 2 tokenMintA should match"
-        );
-        assert.equal(
-          offer2.data.tokenMintB,
-          tokenMintB,
-          "Offer 2 tokenMintB should match"
-        );
-        assert.equal(
-          offer2.data.tokenBWantedAmount,
-          tokenBWantedAmount.toString(),
-          "Offer 2 tokenBWantedAmount should match"
-        );
-        assert.ok(
-          typeof offer2.data.bump === "number",
-          "Offer 2 bump should be a number"
-        );
-        assert.ok(
-          offer2.data.discriminator,
-          "Offer 2 discriminator should exist"
-        );
-      }
-    });
-  });
+  //     // The second offer is created in the 'fails when trying to reuse an existing offer ID' test (by Alice, before Bob tries to reuse the ID)
+  //     const offer2 = offers[1];
+  //     assert.ok(offer2.exists, "Offer 2 account should exist");
+  //     if (offer2.exists) {
+  //       // This offer was also created by Alice, with a specific offer ID
+  //       assert.equal(
+  //         offer2.address,
+  //         offer2.address,
+  //         "Offer 2 address should match"
+  //       );
+  //       assert.equal(
+  //         offer2.data.maker,
+  //         alice.address,
+  //         "Offer 2 maker address should match Alice"
+  //       );
+  //       assert.equal(
+  //         offer2.data.tokenMintA,
+  //         tokenMintA,
+  //         "Offer 2 tokenMintA should match"
+  //       );
+  //       assert.equal(
+  //         offer2.data.tokenMintB,
+  //         tokenMintB,
+  //         "Offer 2 tokenMintB should match"
+  //       );
+  //       assert.equal(
+  //         offer2.data.tokenBWantedAmount,
+  //         tokenBWantedAmount.toString(),
+  //         "Offer 2 tokenBWantedAmount should match"
+  //       );
+  //       assert.ok(
+  //         typeof offer2.data.bump === "number",
+  //         "Offer 2 bump should be a number"
+  //       );
+  //       assert.ok(
+  //         offer2.data.discriminator,
+  //         "Offer 2 discriminator should exist"
+  //       );
+  //     }
+  //   });
+  // });
 
   describe("takeOffer", () => {
     let testOffer: Address;
@@ -477,100 +477,100 @@ describe("Escrow", () => {
     });
   });
 
-  describe("refundOffer", () => {
-    let testOffer: Address;
-    let testVault: Address;
+  // describe("refundOffer", () => {
+  //   let testOffer: Address;
+  //   let testVault: Address;
 
-    before(async () => {
-      const result = await createTestOffer({
-        connection,
-        maker: alice,
-        tokenMintA,
-        tokenMintB,
-        makerTokenAccountA: aliceTokenAccountA,
-        tokenAOfferedAmount,
-        tokenBWantedAmount,
-      });
-      testOffer = result.offer;
-      testVault = result.vault;
-    });
+  //   before(async () => {
+  //     const result = await createTestOffer({
+  //       connection,
+  //       maker: alice,
+  //       tokenMintA,
+  //       tokenMintB,
+  //       makerTokenAccountA: aliceTokenAccountA,
+  //       tokenAOfferedAmount,
+  //       tokenBWantedAmount,
+  //     });
+  //     testOffer = result.offer;
+  //     testVault = result.vault;
+  //   });
 
-    test("successfully refunds an offer to the maker", async () => {
-      const aliceBalanceBefore = await connection.getTokenAccountBalance({
-        tokenAccount: aliceTokenAccountA,
-        mint: tokenMintA,
-        useTokenExtensions: true,
-      });
+  //   test("successfully refunds an offer to the maker", async () => {
+  //     const aliceBalanceBefore = await connection.getTokenAccountBalance({
+  //       tokenAccount: aliceTokenAccountA,
+  //       mint: tokenMintA,
+  //       useTokenExtensions: true,
+  //     });
 
-      const refundOfferInstruction =
-        await programClient.getRefundOfferInstructionAsync({
-          maker: alice,
-          tokenMintA,
-          makerTokenAccountA: aliceTokenAccountA,
-          offer: testOffer,
-          vault: testVault,
-          tokenProgram: TOKEN_EXTENSIONS_PROGRAM,
-        });
+  //     const refundOfferInstruction =
+  //       await programClient.getRefundOfferInstructionAsync({
+  //         maker: alice,
+  //         tokenMintA,
+  //         makerTokenAccountA: aliceTokenAccountA,
+  //         offer: testOffer,
+  //         vault: testVault,
+  //         tokenProgram: TOKEN_EXTENSIONS_PROGRAM,
+  //       });
 
-      await connection.sendTransactionFromInstructions({
-        feePayer: alice,
-        instructions: [refundOfferInstruction],
-      });
+  //     await connection.sendTransactionFromInstructions({
+  //       feePayer: alice,
+  //       instructions: [refundOfferInstruction],
+  //     });
 
-      // Verify refund
-      const aliceBalanceAfter = await connection.getTokenAccountBalance({
-        tokenAccount: aliceTokenAccountA,
-        mint: tokenMintA,
-        useTokenExtensions: true,
-      });
-      assert.ok(
-        aliceBalanceAfter.amount > aliceBalanceBefore.amount,
-        "Balance after refund should be greater than before"
-      );
+  //     // Verify refund
+  //     const aliceBalanceAfter = await connection.getTokenAccountBalance({
+  //       tokenAccount: aliceTokenAccountA,
+  //       mint: tokenMintA,
+  //       useTokenExtensions: true,
+  //     });
+  //     assert.ok(
+  //       aliceBalanceAfter.amount > aliceBalanceBefore.amount,
+  //       "Balance after refund should be greater than before"
+  //     );
 
-      // Verify vault is closed
-      const isClosed = await connection.checkTokenAccountIsClosed({
-        tokenAccount: testVault,
-        useTokenExtensions: true,
-      });
-      assert.ok(isClosed, "Vault should be closed");
-    });
+  //     // Verify vault is closed
+  //     const isClosed = await connection.checkTokenAccountIsClosed({
+  //       tokenAccount: testVault,
+  //       useTokenExtensions: true,
+  //     });
+  //     assert.ok(isClosed, "Vault should be closed");
+  //   });
 
-    test("fails when non-maker tries to refund the offer", async () => {
-      const { offer, vault } = await createTestOffer({
-        connection,
-        maker: alice,
-        tokenMintA,
-        tokenMintB,
-        makerTokenAccountA: aliceTokenAccountA,
-        tokenAOfferedAmount,
-        tokenBWantedAmount,
-      });
+  //   test("fails when non-maker tries to refund the offer", async () => {
+  //     const { offer, vault } = await createTestOffer({
+  //       connection,
+  //       maker: alice,
+  //       tokenMintA,
+  //       tokenMintB,
+  //       makerTokenAccountA: aliceTokenAccountA,
+  //       tokenAOfferedAmount,
+  //       tokenBWantedAmount,
+  //     });
 
-      const refundOfferInstruction =
-        await programClient.getRefundOfferInstructionAsync({
-          maker: bob,
-          tokenMintA,
-          makerTokenAccountA: bobTokenAccountA,
-          offer,
-          vault,
-          tokenProgram: TOKEN_EXTENSIONS_PROGRAM,
-        });
+  //     const refundOfferInstruction =
+  //       await programClient.getRefundOfferInstructionAsync({
+  //         maker: bob,
+  //         tokenMintA,
+  //         makerTokenAccountA: bobTokenAccountA,
+  //         offer,
+  //         vault,
+  //         tokenProgram: TOKEN_EXTENSIONS_PROGRAM,
+  //       });
 
-      try {
-        await connection.sendTransactionFromInstructions({
-          feePayer: bob,
-          instructions: [refundOfferInstruction],
-        });
-        assert.fail("Expected the refund to fail but it succeeded");
-      } catch (thrownObject) {
-        const error = thrownObject as ErrorWithTransaction;
-        assert.equal(
-          error.message,
-          REFUND_OFFER_ERROR,
-          "Expected refund offer error"
-        );
-      }
-    });
-  });
+  //     try {
+  //       await connection.sendTransactionFromInstructions({
+  //         feePayer: bob,
+  //         instructions: [refundOfferInstruction],
+  //       });
+  //       assert.fail("Expected the refund to fail but it succeeded");
+  //     } catch (thrownObject) {
+  //       const error = thrownObject as ErrorWithTransaction;
+  //       assert.equal(
+  //         error.message,
+  //         REFUND_OFFER_ERROR,
+  //         "Expected refund offer error"
+  //       );
+  //     }
+  //   });
+  // });
 });

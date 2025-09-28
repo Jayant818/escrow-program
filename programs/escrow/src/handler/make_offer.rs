@@ -70,19 +70,18 @@ pub fn make_offer(
     let token_mint_b = &context.accounts.token_mint_b;
     let maker_token_a_pda = & context.accounts.maker_token_account_a;
     let vault = & context.accounts.vault;
-    let token_program = &context.accounts.token_program;
+    let token_program: &Interface<'_, TokenInterface> = &context.accounts.token_program;
 
 
-    transfer_tokens(maker_token_a_pda, vault, &token_a_offered_amount, token_mint_a, &maker, token_program, None);
+    transfer_tokens(maker_token_a_pda, vault, &token_a_offered_amount, token_mint_a, &maker, token_program, None)?;
 
-    offer_account.amount = token_a_offered_amount;
+    offer_account.token_a_offered_amount = token_a_offered_amount;
+    offer_account.token_b_wanted_amount = token_b_wanted_amount;
     offer_account.token_mint_a = token_mint_a.key();
     offer_account.token_mint_b = token_mint_b.key();
     offer_account.maker = maker.key();
     offer_account.bump = *&context.bumps.offer;
     offer_account.id = id;
-
-
 
     Ok(())
 }

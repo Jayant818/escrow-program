@@ -11,7 +11,9 @@ pub struct Offer{
 
     pub token_mint_b : Pubkey,
 
-    pub amount : u64,
+    pub token_a_offered_amount : u64,
+
+    pub token_b_wanted_amount : u64,
 
     pub bump:u8,
 

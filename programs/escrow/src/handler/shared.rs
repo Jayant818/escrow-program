@@ -1,5 +1,5 @@
 use anchor_lang::prelude::*;
-use anchor_spl::{token_interface::{TokenAccount, Mint, TransferChecked, transfer_checked, TokenInterface}};
+use anchor_spl::{ token_interface::{transfer_checked, Mint, TokenAccount, TokenInterface, TransferChecked,CloseAccount, close_account}};
 
 
 pub fn transfer_tokens<'info>(
@@ -33,6 +33,35 @@ pub fn transfer_tokens<'info>(
     Ok(())
 }
 
-// pub fn close_token_account(){
+// Token_account 
+// authority 
+// signer_seed
+// token_program
+pub fn close_token_account<'info>(
+    token_account : &InterfaceAccount<'info,TokenAccount>,
+    authority: &AccountInfo<'info>,
+    destination : &AccountInfo<'info>,
+    seeds :Option<&[&[u8]]>,
+    token_program: &Interface<'info,TokenInterface>,
+)->Result<()>{
 
-// }
+    let close_accounts = CloseAccount{
+        destination:destination.to_account_info(),
+        authority:authority.to_account_info(),
+        account:token_account.to_account_info()
+    };
+
+    let signer_seeds = seeds.map(|seed| [seed]);
+
+    // CPI TO Close the account and return the rent to dest.
+
+    close_account(
+        if let Some(seed_arr) = signer_seeds.as_ref(){
+            CpiContext::new_with_signer(token_program.to_account_info(), close_accounts, seed_arr)
+        }else{
+            CpiContext::new(token_program.to_account_info(), close_accounts)
+        }
+    )?;
+
+    Ok(())
+}

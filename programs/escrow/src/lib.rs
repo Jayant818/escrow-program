@@ -22,6 +22,18 @@ pub mod escrow {
 
         Ok(())
     }
+
+    pub fn take_offer(context:Context<TakeOffer>)->Result<()>{
+
+        handler::take_offer(context)?;
+
+        Ok(())
+    }
+
+    pub fn refund(context:Context<RefundOffer>)->Result<()>{
+        handler::refund_offer(context)?;
+        Ok(())
+    }
 }
 
 // #[cfg(test)]
