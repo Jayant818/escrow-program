@@ -8,6 +8,9 @@ pub enum ErrorCode {
     #[msg("Offered is should be greater than 0")]
     InvalidOfferedAmount,
 
+    #[msg("Invalid Mint Account")]
+    InvalidMintAccount,
+
     #[msg("Wanted Should be greater than 0")]
     InvalidWantedAmount,
 

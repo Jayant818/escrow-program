@@ -64,6 +64,9 @@ pub fn make_offer(
     require!(token_b_wanted_amount>0, EscrowErrorCode::InvalidWantedAmount);
     // We need to transfer the token to the vault 
 
+    // checking if both the address are same or not 
+    require!(context.accounts.token_mint_a.key() != context.accounts.token_mint_b.key(), EscrowErrorCode::InvalidMintAccount);
+
     let offer_account = &mut context.accounts.offer;
     let maker = &context.accounts.maker;
     let token_mint_a = &context.accounts.token_mint_a;
